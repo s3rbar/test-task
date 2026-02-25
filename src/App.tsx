@@ -1,9 +1,9 @@
-import './App.css'
-
 function App() {
   return (
     <>
-      Hello, test-task!
+      <h1>
+        Hello, test-task!
+      </h1>
     </>
   )
 }
