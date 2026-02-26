@@ -1,9 +1,11 @@
+// import LoginForm from "./LoginForm"
+// import SignUpForm from "./SignUpForm"
+
 function App() {
   return (
     <>
-      <h1>
-        Hello, test-task!
-      </h1>
+      {/* <LoginForm /> */}
+      {/* <SignUpForm /> */}
     </>
   )
 }
