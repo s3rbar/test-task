@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 // TODO: Add search function
 
 // Типізація для даних замовлення
@@ -36,21 +36,50 @@ const Orders: React.FC = () => {
         timestamp: "2025-11-04 10:17:05"
     };
 
-    const orders = Array(28).fill(null).map((_, index) => ({
-        ...mockOrder,
-        id: index + 1,
-    }));
+    const [allOrders] = useState<Order[]>(() => 
+        Array(28).fill(null).map((_, index) => ({
+            ...mockOrder,
+            id: (index + 1).toString(),
+        }))
+    );
+
+    // Стан для відображення
+    const [displayOrders, setDisplayOrders] = useState<Order[]>(allOrders);
 
     const [currentPage, setCurrentPage] = useState(1);
     const itemsPerPage = 7; // Скільки замовлень показувати на одній сторінці
 
+    // Пошук замовлення/замовлень
+    const [searchQuery, setSearchQuery] = useState('');
+    const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        setSearchQuery(event.target.value)
+    }
+
+    const handleEnter = (e: React.KeyboardEvent) => {
+        if(e.key == "Enter"){
+            filterOrders();
+        }
+    }
+    const inputRef = useRef<HTMLInputElement>(null); // Search-bar input
+    // Функція пошуку
+    const filterOrders = () => {
+        const query = inputRef.current?.value.toLowerCase() || "";
+        
+        const filtered = allOrders.filter(order => 
+            order.id.toLowerCase().includes(query)
+        );
+
+        setDisplayOrders(filtered);
+        setCurrentPage(1); // Обов'язково повертаємо на 1 сторінку
+    };
+
     // Логіка розрахунку індексів
     const indexOfLastItem = currentPage * itemsPerPage;
     const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-    const currentOrders = orders.slice(indexOfFirstItem, indexOfLastItem);
-
+    const currentOrders = displayOrders.slice(indexOfFirstItem, indexOfLastItem);
+    
     // Загальна кількість сторінок
-    const totalPages = Math.ceil(orders.length / itemsPerPage);
+    const totalPages = Math.ceil(displayOrders.length / itemsPerPage);
 
     return (
     <div className="flex h-screen bg-[#0f121d] text-slate-300 font-sans">
@@ -114,11 +143,15 @@ const Orders: React.FC = () => {
 
                 <div className="relative flex items-center">
                     <input
+                    ref={inputRef}
                     type="text"
-                    placeholder="Search by id, coords, etc."
+                    value={searchQuery}
+                    onChange={handleSearchChange}
+                    onKeyDown={handleEnter}
+                    placeholder="Search by id"
                     className="bg-[#1a1f30] border-none rounded-l-lg py-2.5 px-4 w-80 focus:ring-1 focus:ring-indigo-500 outline-none text-sm"
                     />
-                    <button className="bg-[#3f51b5] hover:bg-[#4c5ed1] text-white px-6 py-2.5 rounded-r-lg text-sm font-medium transition-colors">
+                    <button type='submit' onClick={filterOrders} className="bg-[#3f51b5] hover:bg-[#4c5ed1] text-white px-6 py-2.5 rounded-r-lg text-sm font-medium transition-colors">
                         Search
                     </button>
                 </div>
