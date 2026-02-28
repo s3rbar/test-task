@@ -94,7 +94,11 @@ const Orders: React.FC = () => {
 
             <nav className="flex-1 space-y-6">
             <div className="cursor-pointer text-slate-400 hover:text-white transition-colors">
-                <p className="text-xl font-medium">Order/Import CSV</p>
+                <p className="text-xl font-medium">
+                    <a href="neworder">
+                        Order/Import CSV
+                    </a>
+                </p>
             </div>
             <div className="cursor-pointer underline hover:text-white transition-colors">
                 <p className="text-xl font-medium border-l-2 border-transparent">Your Orders</p>
@@ -105,14 +109,16 @@ const Orders: React.FC = () => {
             <div className="relative mt-auto">
                 {/* Випадаюче меню (з'являється над блоком) */}
                 {isUserMenuOpen && (
-                    <div className="absolute bottom-full left-0 mb-2 w-full bg-[#1a1f30] border border-slate-700 rounded-lg shadow-xl overflow-hidden animate-in fade-in slide-in-from-bottom-2 duration-200">
-                    <button 
-                        onClick={handleLogout}
-                        className="w-full text-left px-4 py-3 text-sm text-red-400 hover:bg-red-500/10 transition-colors flex items-center gap-2"
-                    >
-                        <span>Вийти з облікового запису</span>
-                    </button>
-                    </div>
+                    <a href="../">
+                        <div className="absolute bottom-full left-0 mb-2 w-full bg-[#1a1f30] border border-slate-700 rounded-lg shadow-xl overflow-hidden animate-in fade-in slide-in-from-bottom-2 duration-200">
+                        <button 
+                            onClick={handleLogout}
+                            className="w-full text-left px-4 py-3 text-sm text-red-400 hover:bg-red-500/10 transition-colors flex items-center gap-2"
+                        >
+                            <span>Вийти з облікового запису</span>
+                        </button>
+                        </div>
+                    </a>
                 )}
 
                 {/* Сама кнопка адміна */}

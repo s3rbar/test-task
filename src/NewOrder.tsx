@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { 
   Plus, 
   MapPin, 
@@ -8,7 +8,7 @@ import {
   // History 
 } from 'lucide-react';
 
-const DeliveryDashboard: React.FC = () => {
+function DeliveryDashboard(){
   // Стан для форми розрахунку податків
   const [lat, setLat] = useState('');
   const [long, setLong] = useState('');
@@ -63,7 +63,11 @@ const DeliveryDashboard: React.FC = () => {
                 <p className="text-xl font-medium">Order/Import CSV</p>
             </div>
             <div className="cursor-pointer text-slate-400 hover:text-white transition-colors">
-                <p className="text-xl font-medium border-l-2 border-transparent">Your Orders</p>
+                <p className="text-xl font-medium border-l-2 border-transparent">
+                  <a href="orders">
+                    Your Orders
+                  </a>
+                </p>
             </div>
             </nav>
         </div>
@@ -71,15 +75,19 @@ const DeliveryDashboard: React.FC = () => {
         {/* Admin Section with Logout Logic */}
         <div className="relative">
           {isAdminOpen && (
-            <div className="absolute bottom-full left-0 mb-2 w-full bg-[#1e293b] rounded-lg shadow-xl border border-slate-700 overflow-hidden">
-              <button 
-                onClick={() => alert('Logging out...')}
-                className="w-full flex items-center gap-3 p-3 hover:bg-red-500/10 text-red-400 transition-colors"
-              >
-                <LogOut size={18} />
-                <span>Вийти</span>
-              </button>
-            </div>
+            <a href="../">
+              <div className="absolute bottom-full left-0 mb-2 w-full bg-[#1e293b] rounded-lg shadow-xl border border-slate-700 overflow-hidden">
+                <button 
+                  onClick={() => alert('Logging out...')}
+                  className="w-full flex items-center gap-3 p-3 hover:bg-red-500/10 text-red-400 transition-colors"
+                >
+                  <LogOut size={18} />
+                  <span>
+                    Вийти
+                  </span>
+                </button>
+              </div>
+            </a>
           )}
           <div 
             onClick={() => setIsAdminOpen(!isAdminOpen)}

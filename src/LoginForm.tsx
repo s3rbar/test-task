@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Eye, EyeOff } from 'lucide-react'; // Популярна бібліотека іконок
 
 function LoginForm(){
@@ -79,7 +79,7 @@ function LoginForm(){
                 {/* Sign Up Link */}
                 <div className="mt-8 text-center text-gray-400 font-medium">
                 Don't Have An Account?{' '}
-                <a href="#" className="text-blue-500 hover:underline">
+                <a href="signup" className="text-blue-500 hover:underline">
                     Sign Up
                 </a>
                 </div>
